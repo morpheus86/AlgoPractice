@@ -559,10 +559,10 @@ const swapPairs = (head, k) => {
     } else {
       head = prev;
     }
-    lastNodeSublist.next = curr;
-    console.log("last :>> ", lastNodeSublist, curr);
-    lastNodeSublist.next = curr;
-    console.log("head :>> ", head, prev);
+    // lastNodeSublist.next = curr;
+    // console.log("last :>> ", lastNodeSublist, curr);
+    // lastNodeSublist.next = curr;
+    // console.log("head :>> ", head, prev);
     if (curr === null) {
       break;
     }
@@ -570,6 +570,31 @@ const swapPairs = (head, k) => {
   }
   return head;
 };
-const swap = swapPairs(head, 2);
-console.log("swap :>> ", swap);
-console.log("head.getVal() :>> ", swap.getVal());
+// const swap = swapPairs(head, 2);
+// console.log("swap :>> ", swap);
+// console.log("head.getVal() :>> ", swap.getVal());
+
+const divide = (divident, div) => {
+  let i = 0,
+    realDiv = div,
+    realDivident = divident;
+  if (div < 0 && divident > 0) {
+    realDiv = -div;
+  }
+  if (divident < 0 && div > 0) {
+    realDivident = -divident;
+  }
+  if (div < 0 && divident < 0) {
+    realDiv = -div;
+    realDivident = -divident;
+  }
+  while (realDivident >= realDiv) {
+    realDivident -= realDiv;
+    i++;
+  }
+  if ((div < 0 && divident > 0) || (divident < 0 && div > 0)) {
+    return -i;
+  }
+  return i;
+};
+console.log("divide :>> ", divide(1, -1));
