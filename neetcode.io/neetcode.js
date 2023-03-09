@@ -168,3 +168,75 @@ bstk.left.left = new Bt(2);
 bstk.left.left.left = new Bt(1);
 
 // console.log("kth", kthSmallest(bstk, 3));
+
+const rotateImage = (grid) => {
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = i + 1; j < grid[i].length; j++) {
+      [grid[i][j], grid[j][i]] = [grid[j][i], grid[i][j]];
+    }
+  }
+  let i = 0;
+  while (i < grid.length) {
+    let k = 0,
+      j = grid[i].length - 1;
+    while (k < j) {
+      [grid[i][k], grid[i][j]] = [grid[i][j], grid[i][k]];
+      k++;
+      j--;
+    }
+    i++;
+  }
+  return grid;
+};
+// console.log(
+//   "rotateImage :>> ",
+//   rotateImage([
+//     [1, 2, 3],
+//     [4, 5, 6],
+//     [7, 8, 9],
+//   ])
+// );
+var buildTree = function (inorder, postorder) {
+  let map = {};
+  for (let i = 0; i < inorder.length; i++) {
+    map[inorder[i]] = i;
+  }
+  let helper = (start, end) => {
+    if (start > end || postorder.length === 0) return;
+    let root = postorder.pop();
+    let newNode = new Bt(root);
+    let idxInorder = map[root];
+    newNode.right = helper(idxInorder + 1, end);
+    newNode.left = helper(start, idxInorder - 1);
+    return newNode;
+  };
+  return helper(0, inorder.length - 1);
+};
+
+// console.log("buildTree :>> ", buildTree([9, 3, 15, 20, 7], [9, 15, 7, 20, 3]));
+
+const nextPoint = (root) => {
+  let q = [root];
+  let res = [];
+  while (q.length) {
+    let len = q.length;
+    for (let i = 0; i < len; i++) {
+      let node = q.shift();
+      res.push(node.value);
+      if (i < len - 1) {
+        node.next = q[0];
+      }
+      if (node.left) q.push(node.left);
+      if (node.right) q.push(node.right);
+    }
+  }
+  return root;
+};
+
+const b = new Bt(1);
+b.left = new Bt(2);
+b.right = new Bt(3);
+b.left.right = new Bt(5);
+b.left.left = new Bt(4);
+b.right.right = new Bt(7);
+// console.log("nextPoint() :>> ", nextPoint(b));
